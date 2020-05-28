@@ -1,0 +1,37 @@
+// webpackの設定ファイル
+
+//絶対パスを取得する関数
+const path = require("path");
+
+module.exports = {
+  //entryに エントリーポイント(webpack実行時、いちばん最初に読み込まれる)のindex.jsを指定
+  entry: "./src/index.js",
+  //outputに webpackで処理されたファイルの出力される内容の設定を指定
+  output: {
+    // 出力先のフォルダを指定。絶対パスで出力先を記述しないとエラーになるconst pathで絶対パスを取得する(パラメータの第一引数の__dirnameは現在のプロジェクトを指す、第二引数には出力先のフォルダを指定)
+    path: path.resolve(__dirname, "./dist"),
+    // 出力されるファイル名を設定(デフォルトはmain.js)
+    filename: "main.js",
+  },
+  //インストールしたloaderの設定等を指定
+  module: {
+    rules: [
+      {
+        // testはファイル名を検知するためのもの(ここでは正規表現を使いcssを検知)
+        test: /\.css/,
+        // testで検知したファイルが見つかった時、行う処理
+        use: [
+          // loaderは下に書いた順から適用されるので順番に注意(css-loader > style-loader)
+          {
+            // css-loaderで設定したcssを反映させるstyle-loaderを使用(headタグ内にインラインstyleで適用される)
+            loader: "style-loader",
+          },
+          {
+            // css-loaderを使用
+            loader: "css-loader",
+          },
+        ],
+      },
+    ],
+  },
+};
