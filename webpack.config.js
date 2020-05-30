@@ -44,6 +44,23 @@ module.exports = {
           },
         ],
       },
+      {
+        // 画像を読み込むためのrule
+        test: /\.(png|jpg)/,
+        use: [
+          {
+            // url-loader※今回は画像をdata:image/png;base64形式で読み込むために使用
+            //loader: "url-loader",
+            loader: "file-loader",
+            //url-loader,file-loaderの設定オプション
+            options: {
+              esModule: false,
+              // distに出力する際の画像名を指定※name: 画像フォルダ/[nameはsrc/images/内の画像名を読み込み].[extはsrc/images/内の画像の拡張子を読み込む]
+              name: "images/[name].[ext]",
+            },
+          },
+        ],
+      },
     ],
   },
   // pluginを読み込みを行う
