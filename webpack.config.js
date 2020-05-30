@@ -3,6 +3,12 @@
 //絶対パスを取得する関数
 const path = require("path");
 
+//pluginのmini-css-extract-pluginを読み込む関数
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+//pluginのhtml-webpack-pluginを読み込む関数※HtmlWebpackPluginはdistにpluginで設定したindex.htmlを出力するplugin(出力されたhtmlにはconfigで設定したmain.jsやmain.cssも読み込んでくれる)
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
   //entryに エントリーポイント(webpack実行時、いちばん最初に読み込まれる)のindex.jsを指定
   entry: "./src/index.js",
@@ -21,10 +27,12 @@ module.exports = {
         test: /\.css/,
         // testで検知したファイルが見つかった時、行う処理
         use: [
-          // loaderは下に書いた順から適用されるので順番に注意(css-loader > style-loader)
+          // loaderは下に書いた順から適用されるので順番に注意(css-loader > MiniCssExtractPlugin.loaderの順で読み込まれる)
           {
             // css-loaderで設定したcssを反映させるstyle-loaderを使用(headタグ内にインラインstyleで適用される)
-            loader: "style-loader",
+            // loader: "style-loader",
+            // pluginのMiniCssExtractPlugin.loaderはcssをmain.cssという外部ファイルとしてdistに出力するloader
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             // css-loaderを使用
@@ -34,4 +42,11 @@ module.exports = {
       },
     ],
   },
+  // pluginを読み込みを行う
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
 };
