@@ -61,6 +61,24 @@ module.exports = {
           },
         ],
       },
+      {
+        // pugを使うためのrule
+        //.pugを検知
+        test: /\.pug/,
+        use: [
+          //pug-html-loader > html-loaderの順で処理
+          {
+            loader: "html-loader",
+          },
+          {
+            loader: "pug-html-loader",
+            options: {
+              // distフォルダにhtmlとして出力される際、読みやすくコードを整形する
+              pretty: true,
+            },
+          },
+        ],
+      },
     ],
   },
   // pluginを読み込みを行う
@@ -71,7 +89,12 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       // srcからdistに出力する際のファイルを指定
-      template: "./src/templates/index.html",
+      template: "./src/templates/index.pug",
+      filename: "index.html",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/templates/access.pug",
+      filename: "access.html",
     }),
     new CleanWebpackPlugin(),
   ],

@@ -1,0 +1,20 @@
+//- テンプレート拡張(呼び出したいファイルでextends ファイル名で読み込まれる)
+//- テンプレート拡張はdoctypeやmetaタグなどサイトで共通で読み込まれるファイルを切り出し、呼び出して使えるようにしたもの
+
+block locals
+    //-pugで使用する変数宣言。例) - var 変数名※必ず先頭に-をつける
+    //- 変数を使うと動的に内容を変更することができる
+    - var title = 'My Website';
+
+doctype html
+html(lang="ja")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        //- 宣言したtitleという変数を使用。例#{変数名}
+        title #{title}
+    body
+        //- include 部分テンプレート名で部分テンプレートを読み込み
+        include _menu.pug
+        //- blockの内容は置き換えることができる(block名は自由に決められる。今回はblock content)
+        block content

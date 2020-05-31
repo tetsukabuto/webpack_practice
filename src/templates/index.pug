@@ -1,0 +1,19 @@
+//- pugはJavaScriptでHTMLを拡張するテンプレートエンジン(部分テンプレートやテンプレート拡張、変数など使える)
+//- pugの書き方
+//- タグをインデントを使いhtml構造を記述(タグをネストする場合はインデントを入れる。入れないとエラー)
+//- 閉じタグは必要なし
+//- 属性は()内に入れる。例)meta(charset="UTF-8")<=タグ(属性)
+//- タグ内の要素は半角スペースの後に入力 例)h1 見出しタグです
+
+//- extends テンプレート拡張名でテンプレート拡張を呼び出す
+extends _layout.pug
+
+//- 以下はextendsで指定したblock block名で指定した置き換わる部分
+block locals
+    //- extendsで指定した変数titleの内容は上書きされindex.htmlではHello Pug!になる
+    - var title = 'Hello Pug!';
+
+block content
+    h1 Hello, World!
+    img(src="../images/icon.png")
+    img(src="../images/thumbnail.jpg")
