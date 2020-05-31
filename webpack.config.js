@@ -27,11 +27,11 @@ module.exports = {
   module: {
     rules: [
       {
-        // testはファイル名を検知するためのもの(ここでは正規表現を使いcssを検知)
-        test: /\.css/,
+        // testはファイル名を検知するためのもの(ここでは正規表現を使いcssもしくはsassもしくはscssを検知)
+        test: /\.(css|sass|scss)/,
         // testで検知したファイルが見つかった時、行う処理
         use: [
-          // loaderは下に書いた順から適用されるので順番に注意(css-loader > MiniCssExtractPlugin.loaderの順で読み込まれる)
+          // loaderは下に書いた順から適用されるので順番に注意(sass-loader > css-loader > MiniCssExtractPlugin.loaderの順で読み込まれる)
           {
             // css-loaderで設定したcssを反映させるstyle-loaderを使用(headタグ内にインラインstyleで適用される)
             // loader: "style-loader",
@@ -41,6 +41,10 @@ module.exports = {
           {
             // css-loaderを使用
             loader: "css-loader",
+          },
+          {
+            // sass-loaderを使用
+            loader: "sass-loader",
           },
         ],
       },
@@ -95,6 +99,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/templates/access.pug",
       filename: "access.html",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/templates/members/taro.pug",
+      filename: "members/taro.html",
     }),
     new CleanWebpackPlugin(),
   ],
