@@ -2,9 +2,17 @@
 import ReactDom from "react-dom";
 import * as React from "react";
 
+// typescript形式で作成したAlertというReactコンポーネントを読み込む
+import Alert from "./Alert.tsx";
+
 // Reactのコンポーネントを定義
 const App = (props) => {
-  return <div style={{ color: "#000" }}>Hello, React App!</div>;
+  return (
+    <div style={{ color: "#000" }}>
+      Hello, React App!
+      <Alert message="Success!" />
+    </div>
+  );
 };
 
 //コンポーネントを表示させる要素を取得

@@ -34,6 +34,13 @@ module.exports = {
   module: {
     rules: [
       {
+        // typescriptを使うためのrule
+        //正規表現でtsを検知
+        test: /\.(ts|tsx)/,
+        exclude: /node-modules/,
+        use: [{ loader: "ts-loader" }],
+      },
+      {
         // Vue.jsを使うためのrule
         //正規表現でvueを検知
         test: /\.vue/,
