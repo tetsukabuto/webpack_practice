@@ -13,9 +13,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 // CleanWebpackPluginはsrcフォルダの内容をdistフォルダに出力する際、クリーンアップしてくれるplugin※ゴミファイルの混入を防ぐ
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-//vue-loaderを読み込む関数
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
-
 module.exports = {
   // ビルドする際の出力モード(開発はdevelopment,本番環境はproduction)
   mode: "development",
@@ -39,14 +36,6 @@ module.exports = {
         test: /\.(ts|tsx)/,
         exclude: /node-modules/,
         use: [{ loader: "ts-loader" }],
-      },
-      {
-        // Vue.jsを使うためのrule
-        //正規表現でvueを検知
-        test: /\.vue/,
-        // excludeでnode_modulesのフォルダは検知から除外する
-        exclude: /node_modules/,
-        use: [{ loader: "vue-loader" }],
       },
       {
         // jsを使うためのrule(主にbabelを使ってのトランスコンパイルで使用)
@@ -109,6 +98,8 @@ module.exports = {
               esModule: false,
               // distに出力する際の画像名を指定※name: 画像フォルダ/[nameはsrc/images/内の画像名を読み込み].[extはsrc/images/内の画像の拡張子を読み込む]
               name: "images/[name].[ext]",
+              // 画像をルート相対で参照する
+              publicPath: "/",
             },
           },
           {
@@ -146,7 +137,6 @@ module.exports = {
   },
   // pluginを読み込みを行う
   plugins: [
-    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // distに出力する際のファイル名を指定
       filename: "./stylsheets/main.css",

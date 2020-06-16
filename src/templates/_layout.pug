@@ -14,7 +14,10 @@ html(lang="ja")
         //- 宣言したtitleという変数を使用。例#{変数名}
         title #{title}
     body
-        //- include 部分テンプレート名で部分テンプレートを読み込み
-        include _menu.pug
-        //- blockの内容は置き換えることができる(block名は自由に決められる。今回はblock content)
-        block content
+        .container
+            //- include 部分テンプレート名で部分テンプレートを読み込み
+            include _menu.pug
+            //- blockの内容は置き換えることができる(block名は自由に決められる。今回はblock content)
+            block content
+            .footer
+                | Webpack Course

@@ -5,36 +5,60 @@
 // @extend(スタイルの拡張する機能、例えば.titleと.title-lgの２つのクラスがあり.title-lgはtitleのスタイルを継承して、フォントサイズだけ独自のサイズにしたい場合に使用)
 // @mixinはjsでいう関数のようなもの
 
-// @importでfooterのスタイルが書かれているcssを読み込む
+// @importでfooterとmenuのスタイルが書かれているcssを読み込む
+//@importする.scssのファイル名は_(アンダースコア)がついているがimportする際は省略可能
+@import "./menu.scss";
 @import "./footer.scss";
 
-// @mixinを使ってmarginをセットする関数を定義
-@mixin set-margin($direction, $value) {
-  // $directionの引数にはtop/right/bottom/leftなどマージンを当てたい方向が引数にわたされる。文字列-#{$変数名}で文字を連結する
-  // $valueにはmarginの値が入る
-  margin-#{$direction}: $value;
+html,
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  box-sizing: border-box;
 }
 
 body {
-  color: lightblue;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: sans-serif;
 }
 
-//変数宣言
-$text-color: orange;
-// ネスト
-.content {
-  .title {
-    font-size: 24px;
-    color: $text-color;
-  }
-  .title-lg {
-    // @extend(@extend 要素のスタイルがかかれたclassなど)
-    // ここでは.titleのfont-size以外のスタイルを継承して、font-sizeだけ独自のスタイルを使用している
-    // 例えばデザインは一緒で文字の大きさの違う見出しなどで@extendを使うと便利
-    @extend .title;
-    font-size: 32px;
-  }
-  // @mixinで定義したset-marginを呼び出す。※@include mixin名(引数)
-  // 第一引数にrightは$direction、第二引数16pxは$valueに渡されて関数内の処理が行われる
-  @include set-margin(right, 16px);
+h1 {
+  font-size: 2em;
+}
+
+.container {
+  width: 980px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5em;
+}
+
+.main-image {
+  background-image: url("../images/thumbnail.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border-radius: 2em;
+  margin: 1em 0;
+}
+
+$icon-size: 64px;
+.icon {
+  width: $icon-size;
+  height: $icon-size;
+  border-radius: $icon-size / 2;
+  padding: 4px;
+  position: absolute;
+  top: 1em;
+  left: 1em;
 }
