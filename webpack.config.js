@@ -25,7 +25,8 @@ module.exports = {
     // 出力先のフォルダを指定。絶対パスで出力先を記述しないとエラーになるconst pathで絶対パスを取得する(パラメータの第一引数の__dirnameは現在のプロジェクトを指す、第二引数には出力先のフォルダを指定)
     path: path.resolve(__dirname, "./dist"),
     // 出力されるファイル名を設定(デフォルトはmain.js)
-    filename: "javascripts/main.js",
+    // ファイルキャッシュを強制的にクリアする([name:ファイル名]-[hash:ランダムな文字列].jsでビルドされる)
+    filename: "javascripts/[name]-[hash].js",
   },
   //インストールしたloaderの設定等を指定
   module: {
@@ -96,8 +97,8 @@ module.exports = {
             //url-loader,file-loaderの設定オプション
             options: {
               esModule: false,
-              // distに出力する際の画像名を指定※name: 画像フォルダ/[nameはsrc/images/内の画像名を読み込み].[extはsrc/images/内の画像の拡張子を読み込む]
-              name: "images/[name].[ext]",
+              // distに出力する際の画像名を指定※name: 画像フォルダ/[nameはsrc/images/内の画像名を読み込み]-[hashはファイルキャッシュをクリアするランダムな文字列を生成].[extはsrc/images/内の画像の拡張子を読み込む]
+              name: "images/[name]-[hash].[ext]",
               // 画像をルート相対で参照する
               publicPath: "/",
             },
@@ -139,7 +140,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       // distに出力する際のファイル名を指定
-      filename: "./stylsheets/main.css",
+      filename: "./stylsheets/[name]-[hash].css",
     }),
     new HtmlWebpackPlugin({
       // srcからdistに出力する際のファイルを指定
